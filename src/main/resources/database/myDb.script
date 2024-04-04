@@ -29,7 +29,7 @@ SET FILES NIO TRUE
 SET FILES NIO SIZE 256
 SET FILES LOG TRUE
 SET FILES LOG SIZE 50
-SET FILES CHECK 10310
+SET FILES CHECK 11130
 SET DATABASE COLLATION "SQL_TEXT" PAD SPACE
 CREATE USER SA PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
 ALTER USER SA SET LOCAL TRUE
@@ -58,3 +58,5 @@ INSERT INTO "flyway_schema_history" VALUES(1,'1','create-table-events','SQL','V1
 INSERT INTO "flyway_schema_history" VALUES(2,'2','create-table-attendees','SQL','V2__create-table-attendees.sql',-1047443059,'SA','2024-04-04 07:55:00.974000',7,'1')
 INSERT INTO "flyway_schema_history" VALUES(3,'3','create-table-checkins','SQL','V3__create-table-checkins.sql',1845743932,'SA','2024-04-04 07:55:15.230000',10,'1')
 INSERT INTO "flyway_schema_history" VALUES(4,'4','create-indexes','SQL','V4__create-indexes.sql',-975704723,'SA','2024-04-04 07:55:58.249000',52,'1')
+INSERT INTO EVENTS VALUES('724afcc2-1884-4b6a-aab2-a26d8c511aa5','teste','details','teste',500)
+INSERT INTO EVENTS VALUES('c8a9e067-c8d7-43f3-9603-d562e2f54952','Evento foda','Detalhes fodas','evento-foda',15)
