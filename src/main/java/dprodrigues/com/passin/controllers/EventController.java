@@ -1,5 +1,7 @@
 package dprodrigues.com.passin.controllers;
 
+import dprodrigues.com.passin.dto.attendee.AttendeeIdDTO;
+import dprodrigues.com.passin.dto.attendee.AttendeeRequestDTO;
 import dprodrigues.com.passin.dto.attendee.AttendeesListResponseDTO;
 import dprodrigues.com.passin.dto.event.EventIdDTO;
 import dprodrigues.com.passin.dto.event.EventRequestDTO;
@@ -25,6 +27,13 @@ public class EventController {
         return ResponseEntity.ok(event);
     }
 
+    @GetMapping("/attendees/{id}")
+    public ResponseEntity<AttendeesListResponseDTO> getEventAttendees(@PathVariable String id) {
+        AttendeesListResponseDTO attendeesListResponse = this.attendeeService.getEventsAttendee(id);
+
+        return ResponseEntity.ok(attendeesListResponse);
+    }
+
     @PostMapping
     public ResponseEntity<EventIdDTO> createEvent(@RequestBody EventRequestDTO body, UriComponentsBuilder uriComponentsBuilder) {
         EventIdDTO eventIdDTO = this.eventService.createEvent(body);
@@ -34,10 +43,12 @@ public class EventController {
         return ResponseEntity.created(uri).body(eventIdDTO);
     }
 
-    @GetMapping("/attendees/{id}")
-    public ResponseEntity<AttendeesListResponseDTO> getEventAttendees(@PathVariable String id) {
-        AttendeesListResponseDTO attendeesListResponse = this.attendeeService.getEventsAttendee(id);
+    @PostMapping("/{eventId}/attendees")
+    public ResponseEntity<AttendeeIdDTO> registerParticipant(@PathVariable String eventId, @RequestBody AttendeeRequestDTO body, UriComponentsBuilder uriComponentsBuilder) {
+        AttendeeIdDTO attendeeIdDTO = this.eventService.registerAttendeeOnEvent(eventId, body);
 
-        return ResponseEntity.ok(attendeesListResponse);
+        var uri = uriComponentsBuilder.path("/attendees/{attendeeId}/badge").buildAndExpand(attendeeIdDTO.attendeeId()).toUri();
+
+        return ResponseEntity.created(uri).body(attendeeIdDTO);
     }
 }
